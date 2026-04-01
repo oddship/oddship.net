@@ -16,7 +16,6 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <script is:inline defer src="https://analytics.rohanverma.net/script.js" data-website-id="3c773110-c16d-411e-a7ba-063f0178d18f"></script>
   </head>
   <body>
     <nav>
@@ -32,5 +31,15 @@ const currentPath = Astro.url.pathname;
     <footer>
       oddship.net
     </footer>
+    <script is:inline>
+      // Umami Analytics
+      (function() {
+        var s = document.createElement('script');
+        s.defer = true;
+        s.src = 'https://analytics.rohanverma.net/script.js';
+        s.setAttribute('data-website-id', '3c773110-c16d-411e-a7ba-063f0178d18f');
+        document.head.appendChild(s);
+      })();
+    </script>
   </body>
 </html>

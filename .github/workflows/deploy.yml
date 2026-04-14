@@ -1,17 +1,61 @@
-name: Trigger Deploy
+name: Deploy via s3site (manual)
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-oddship-s3site
+  cancel-in-progress: true
 
 jobs:
-  trigger-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger nix-system deployment
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Build site
+        run: nix build .#default
+
+      - name: Create site archive
+        run: tar czf oddship.net.tar.gz -C result .
+
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:gh-ci
+          ping: rhnvrm-private
+
+      - name: Upload archive to Garage
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.S3SITE_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3SITE_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: garage
+          AWS_EC2_METADATA_DISABLED: true
+          S3SITE_BUCKET: static-sites
+          S3SITE_ENDPOINT: http://rhnvrm-private:3900
         run: |
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.NIX_SYSTEM_PAT }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/oddship/nix-system/dispatches \
-            -d '{"event_type":"deploy-oddship-site"}'
+          set -euo pipefail
+          nix shell nixpkgs#awscli2 -c aws \
+            --endpoint-url "${S3SITE_ENDPOINT}" \
+            s3api put-object \
+            --bucket "${S3SITE_BUCKET}" \
+            --key "sites/oddship.net.tar.gz" \
+            --body oddship.net.tar.gz >/dev/null
+          nix shell nixpkgs#awscli2 -c aws \
+            --endpoint-url "${S3SITE_ENDPOINT}" \
+            s3api head-object \
+            --bucket "${S3SITE_BUCKET}" \
+            --key "sites/oddship.net.tar.gz" >/dev/null
+
+      - name: Wait for poll-based rollout
+        run: |
+          echo "Archive uploaded to Garage. oddship-web will pick it up on the next s3site poll (configured for 5 minutes)."

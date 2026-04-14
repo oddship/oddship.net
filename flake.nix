@@ -16,7 +16,7 @@
           pname = "oddship-site";
           version = "1.0.0";
           src = ./.;
-          npmDepsHash = "sha256-5A8+2/jax2+/4rcmo9Uy3paG0TLeki8k+KkLGaWog8o=";
+          npmDepsHash = "sha256-7voOk5BmK8lQZLNPF4W7bucPton7w20a1YJlPEnmYPY=";
           buildPhase = ''
             npm run build
           '';

@@ -7,7 +7,7 @@ This repository contains the source for the [oddship.net](https://oddship.net) w
 `oddship.net` now follows the same hosted deploy model as `rohanverma.net`:
 
 - GitHub Actions builds the site
-- a manual GitHub Actions workflow uploads `sites/oddship.net.tar.gz` to Garage over Tailscale
+- GitHub Actions uploads `sites/oddship.net.tar.gz` to Garage over Tailscale on every push to `main` (and can also be run manually)
 - `oddship-web` serves the site through `s3site`
 - production picks up new uploads on the next `s3site` poll
 

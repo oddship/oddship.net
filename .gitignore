@@ -8,3 +8,7 @@ result
 
 # Local build archives
 *.tar.gz
+
+# Generated stargazer artifacts
+src/generated/
+public/feeds/github-stars.xml

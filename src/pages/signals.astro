@@ -1,0 +1,115 @@
+---
+import { existsSync, readFileSync } from "node:fs";
+import Layout from "../layouts/Layout.astro";
+
+interface StarEvent {
+  starredAt: string;
+  repo: {
+    nameWithOwner: string;
+    url: string;
+    description: string | null;
+  };
+  user: {
+    login: string;
+    url: string;
+    avatarUrl: string | null;
+  };
+}
+
+interface StarsData {
+  generatedAt?: string;
+  feed?: {
+    path?: string;
+  };
+  stars?: StarEvent[];
+}
+
+const dataPath = new URL("../generated/github-stars.json", import.meta.url);
+const fallbackData: StarsData = {
+  feed: {
+    path: "/feeds/github-stars.xml",
+  },
+  stars: [],
+};
+
+const starsData: StarsData = existsSync(dataPath)
+  ? JSON.parse(readFileSync(dataPath, "utf8")) as StarsData
+  : fallbackData;
+
+const stars = starsData.stars ?? [];
+const feedPath = starsData.feed?.path ?? "/feeds/github-stars.xml";
+const updatedLabel = starsData.generatedAt
+  ? new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short",
+      timeZone: "UTC",
+    }).format(new Date(starsData.generatedAt))
+  : null;
+---
+
+<Layout title="Signals - Oddship">
+  <h1>Signals</h1>
+
+  <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 2em;">
+    A quiet record of people finding the work.
+  </p>
+
+  <p>
+    Recent GitHub stargazers across selected Oddship projects. Attention is not the point here.
+    Still, it helps to know when something leaves the harbor and reaches another shore.
+  </p>
+
+  <p>
+    <a href={feedPath}>RSS feed</a>
+  </p>
+
+  {updatedLabel && (
+    <p style="color: var(--text-secondary); font-size: 0.95rem;">
+      Updated {updatedLabel} UTC
+    </p>
+  )}
+
+  {stars.length === 0 ? (
+    <p>No recent stargazers yet.</p>
+  ) : (
+    <div style="display: grid; gap: 1rem; margin-top: 2rem;">
+      {stars.map((star) => (
+        <article style="border: 1px solid var(--border); background: var(--bg-surface); padding: 1rem 1.25rem;">
+          <div style="display: flex; gap: 1rem; align-items: flex-start;">
+            {star.user.avatarUrl && (
+              <img
+                src={star.user.avatarUrl}
+                alt=""
+                width="48"
+                height="48"
+                loading="lazy"
+                style="border-radius: 999px; border: 1px solid var(--border-strong);"
+              />
+            )}
+            <div>
+              <p style="margin-bottom: 0.4rem;">
+                <a href={star.user.url} target="_blank" rel="noopener">@{star.user.login}</a>
+                {" "}
+                starred
+                {" "}
+                <a href={star.repo.url} target="_blank" rel="noopener">{star.repo.nameWithOwner}</a>
+              </p>
+              {star.repo.description && (
+                <p style="margin-bottom: 0.4rem; color: var(--text-secondary);">
+                  {star.repo.description}
+                </p>
+              )}
+              <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem;">
+                {new Intl.DateTimeFormat("en-US", {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                  timeZone: "UTC",
+                }).format(new Date(star.starredAt))} UTC
+              </p>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  )}
+</Layout>

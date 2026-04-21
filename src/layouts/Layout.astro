@@ -16,12 +16,14 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Oddship GitHub stargazers" href="/feeds/github-stars.xml" />
   </head>
   <body>
     <nav>
       <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>home</a>
       <a href="/about" aria-current={currentPath.startsWith("/about") ? "page" : undefined}>about</a>
       <a href="/chronicles" aria-current={currentPath === "/chronicles" ? "page" : undefined}>chronicles</a>
+      <a href="/signals" aria-current={currentPath === "/signals" ? "page" : undefined}>signals</a>
     </nav>
 
     <main class="content">

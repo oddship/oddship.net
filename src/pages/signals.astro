@@ -1,5 +1,6 @@
 ---
 import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 import Layout from "../layouts/Layout.astro";
 
 interface StarEvent {
@@ -24,7 +25,7 @@ interface StarsData {
   stars?: StarEvent[];
 }
 
-const dataPath = new URL("../generated/github-stars.json", import.meta.url);
+const dataPath = path.resolve(process.cwd(), "src/generated/github-stars.json");
 const fallbackData: StarsData = {
   feed: {
     path: "/feeds/github-stars.xml",

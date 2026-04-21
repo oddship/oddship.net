@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-21T18:33:54.442Z",
+  "updatedAt": "2026-04-21T19:34:02.736Z",
   "events": [
     {
       "id": "oddship/bosun:shantanugoel:2026-02-28T15:13:07Z",
@@ -30,5 +30,15 @@
       "id": "oddship/bosun:abhinavxd:2026-02-24T20:44:14Z",
       "starredAt": "2026-02-24T20:44:14Z"
     }
-  ]
+  ],
+  "pending": {
+    "batchId": "2026-04-21T19:34:02.736Z:1:oddship/moat:Abin-Antu:2026-04-21T18:47:01Z",
+    "preparedAt": "2026-04-21T19:34:02.736Z",
+    "events": [
+      {
+        "id": "oddship/moat:Abin-Antu:2026-04-21T18:47:01Z",
+        "starredAt": "2026-04-21T18:47:01Z"
+      }
+    ]
+  }
 }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-04-23T00:08:59.714Z",
+  "updatedAt": "2026-04-23T03:54:00.078Z",
   "events": [
     {
       "id": "oddship/moat:Abin-Antu:2026-04-21T18:47:01Z",
@@ -34,5 +34,15 @@
       "id": "oddship/bosun:abhinavxd:2026-02-24T20:44:14Z",
       "starredAt": "2026-02-24T20:44:14Z"
     }
-  ]
+  ],
+  "pending": {
+    "batchId": "2026-04-23T03:54:00.078Z:1:oddship/stargazers-action:prayagverma:2026-04-23T02:55:54Z",
+    "preparedAt": "2026-04-23T03:54:00.078Z",
+    "events": [
+      {
+        "id": "oddship/stargazers-action:prayagverma:2026-04-23T02:55:54Z",
+        "starredAt": "2026-04-23T02:55:54Z"
+      }
+    ]
+  }
 }

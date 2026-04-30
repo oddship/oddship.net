@@ -3,6 +3,14 @@
   "updatedAt": "2026-04-30T09:34:05.561Z",
   "events": [
     {
+      "id": "oddship/wg-tui:shridarpatil:2026-04-30T08:20:57Z",
+      "starredAt": "2026-04-30T08:20:57Z"
+    },
+    {
+      "id": "oddship/wg-tui:cvhariharan:2026-04-30T06:58:48Z",
+      "starredAt": "2026-04-30T06:58:48Z"
+    },
+    {
       "id": "oddship/stargazers-action:prayagverma:2026-04-23T02:55:54Z",
       "starredAt": "2026-04-23T02:55:54Z"
     },
@@ -38,19 +46,5 @@
       "id": "oddship/bosun:abhinavxd:2026-02-24T20:44:14Z",
       "starredAt": "2026-02-24T20:44:14Z"
     }
-  ],
-  "pending": {
-    "batchId": "2026-04-30T09:34:05.561Z:2:oddship/wg-tui:shridarpatil:2026-04-30T08:20:57Z",
-    "preparedAt": "2026-04-30T09:34:05.561Z",
-    "events": [
-      {
-        "id": "oddship/wg-tui:shridarpatil:2026-04-30T08:20:57Z",
-        "starredAt": "2026-04-30T08:20:57Z"
-      },
-      {
-        "id": "oddship/wg-tui:cvhariharan:2026-04-30T06:58:48Z",
-        "starredAt": "2026-04-30T06:58:48Z"
-      }
-    ]
-  }
+  ]
 }

@@ -3,6 +3,14 @@
   "updatedAt": "2026-05-19T12:23:52.759Z",
   "events": [
     {
+      "id": "oddship/wg-tui:devaryakjha:2026-05-19T11:43:31Z",
+      "starredAt": "2026-05-19T11:43:31Z"
+    },
+    {
+      "id": "oddship/wg-tui:abhinavxd:2026-05-19T10:53:30Z",
+      "starredAt": "2026-05-19T10:53:30Z"
+    },
+    {
       "id": "oddship/wg-tui:iamd3vil:2026-05-02T17:09:45Z",
       "starredAt": "2026-05-02T17:09:45Z"
     },
@@ -50,19 +58,5 @@
       "id": "oddship/bosun:abhinavxd:2026-02-24T20:44:14Z",
       "starredAt": "2026-02-24T20:44:14Z"
     }
-  ],
-  "pending": {
-    "batchId": "2026-05-19T12:23:52.759Z:2:oddship/wg-tui:devaryakjha:2026-05-19T11:43:31Z",
-    "preparedAt": "2026-05-19T12:23:52.759Z",
-    "events": [
-      {
-        "id": "oddship/wg-tui:devaryakjha:2026-05-19T11:43:31Z",
-        "starredAt": "2026-05-19T11:43:31Z"
-      },
-      {
-        "id": "oddship/wg-tui:abhinavxd:2026-05-19T10:53:30Z",
-        "starredAt": "2026-05-19T10:53:30Z"
-      }
-    ]
-  }
+  ]
 }

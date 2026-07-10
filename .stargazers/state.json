@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-09T23:44:12.117Z",
+  "updatedAt": "2026-07-10T04:19:10.287Z",
   "events": [
     {
       "id": "oddship/doordarshan-zola:lokranjanp:2026-06-23T13:59:38Z",
@@ -66,5 +66,15 @@
       "id": "oddship/bosun:abhinavxd:2026-02-24T20:44:14Z",
       "starredAt": "2026-02-24T20:44:14Z"
     }
-  ]
+  ],
+  "pending": {
+    "batchId": "2026-07-10T04:19:10.287Z:1:oddship/quartermaster:sjoerd2025:2026-07-10T03:23:24Z",
+    "preparedAt": "2026-07-10T04:19:10.287Z",
+    "events": [
+      {
+        "id": "oddship/quartermaster:sjoerd2025:2026-07-10T03:23:24Z",
+        "starredAt": "2026-07-10T03:23:24Z"
+      }
+    ]
+  }
 }

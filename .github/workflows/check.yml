@@ -1,0 +1,31 @@
+name: Check Zola site
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+      - name: Install pinned Zola
+        run: |
+          curl --fail --location --retry 3 https://github.com/getzola/zola/releases/download/v0.21.0/zola-v0.21.0-x86_64-unknown-linux-gnu.tar.gz -o /tmp/zola.tar.gz
+          echo '5c37a8f706567d6cad3f0dbc0eaebe3b9591cc301bd67089e5ddc0d0401732d6  /tmp/zola.tar.gz' | sha256sum --check
+          tar xzf /tmp/zola.tar.gz -C /tmp
+          /tmp/zola build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: oddship-preview
+          path: public
+      - name: Install Nix
+        uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Check deployment build
+        run: nix build .#default

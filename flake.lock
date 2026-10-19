@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "doordarshan": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788436873,
+        "narHash": "sha256-M4fULVX55pqe9AbatJqKW2/C1fGm5GtdgKPIgL5pjfw=",
+        "owner": "oddship",
+        "repo": "doordarshan-zola",
+        "rev": "ec3c4c976aeff3d5e7b0f15ba97b881d31ba2d05",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oddship",
+        "repo": "doordarshan-zola",
+        "rev": "ec3c4c976aeff3d5e7b0f15ba97b881d31ba2d05",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -20,11 +37,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1755615617,
-        "narHash": "sha256-HMwfAJBdrr8wXAkbGhtcby1zGFvs+StOp19xNsbqdOg=",
+        "lastModified": 1748370509,
+        "narHash": "sha256-QlL8slIgc16W5UaI3w7xHQEP+Qmv/6vSNTpoZrrSlbk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+        "rev": "4faa5f5321320e49a78ae7848582f684d64783e9",
         "type": "github"
       },
       "original": {
@@ -36,6 +53,7 @@
     },
     "root": {
       "inputs": {
+        "doordarshan": "doordarshan",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"
       }

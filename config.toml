@@ -1,0 +1,27 @@
+base_url = "https://oddship.net"
+title = "Oddship"
+description = "Open source apps, developer tools, and experiments by Rohan Verma."
+author = "Rohan Verma"
+theme = "doordarshan"
+compile_sass = true
+minify_html = true
+build_search_index = false
+generate_feeds = false
+[extra.doordarshan.features]
+site_search = false
+pages_search = false
+[extra.doordarshan.identity]
+nav_brand = "~/oddship"
+homepage_title = "Oddship"
+github_url = "https://github.com/oddship/oddship.net"
+[extra.doordarshan.analytics]
+enabled = false
+[[extra.doordarshan.nav.menu]]
+name = "Projects"
+url = "/projects/"
+[[extra.doordarshan.nav.menu]]
+name = "About"
+url = "/about/"
+[[extra.doordarshan.nav.menu]]
+name = "GitHub ↗"
+url = "https://github.com/oddship"

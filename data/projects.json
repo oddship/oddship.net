@@ -10,7 +10,8 @@
     "status": "Development preview",
     "image": "https://raw.githubusercontent.com/oddship/nixos-update-manager/main/docs/evidence/ui-grouped-packages.png",
     "image_alt": "NixOS Update Manager showing grouped package changes",
-    "command": "nix run github:oddship/nixos-update-manager"
+    "command": "nix run github:oddship/nixos-update-manager",
+    "featured": true
   },
   {
     "name": "fidget-toys-android",
@@ -23,7 +24,8 @@
     "status": "Open source",
     "image": "https://raw.githubusercontent.com/oddship/fidget-toys-android/main/docs/screenshots/spinner-dark.png",
     "image_alt": "Fidget Toys spinner in dark mode",
-    "action": "Download APK"
+    "action": "Download APK",
+    "featured": true
   },
   {
     "name": "doot",
@@ -36,7 +38,22 @@
     "status": "Early v0.1",
     "image": "https://raw.githubusercontent.com/oddship/doot/main/docs/_static/doot-demo.png",
     "image_alt": "Doot demo with fictional email data",
-    "action": "Try the demo"
+    "action": "Try the demo",
+    "featured": true
+  },
+  {
+    "name": "gnome-quickshare",
+    "title": "GNOME Quickshare",
+    "description": "Send files, links, and text to nearby devices from a native GNOME app.",
+    "body": "A GTK 4 and libadwaita development preview using the Quick Share protocol. Local transfers are tested; interoperability with physical Android and Windows devices remains unvalidated.",
+    "url": "https://github.com/oddship/gnome-quickshare",
+    "language": "Rust",
+    "homepage": "",
+    "status": "Development preview",
+    "image": "https://raw.githubusercontent.com/oddship/gnome-quickshare/main/docs/screenshots/send.png",
+    "image_alt": "GNOME Quickshare showing the Send view",
+    "command": "nix run github:oddship/gnome-quickshare",
+    "featured": true
   },
   {
     "name": "wg-tui",
@@ -45,10 +62,12 @@
     "body": "A searchable target picker that launches your system SSH client. It also supports local tunnels and file transfers through Warpgate.",
     "url": "https://github.com/oddship/wg-tui",
     "language": "Go",
-    "homepage": "",
+    "homepage": "https://oddship.github.io/wg-tui/",
     "status": "Open source",
     "image": "",
-    "image_alt": ""
+    "image_alt": "",
+    "featured": false,
+    "action": "Documentation"
   },
   {
     "name": "moat",
@@ -62,7 +81,8 @@
     "image": "",
     "image_alt": "",
     "action": "Documentation",
-    "command": "go install github.com/oddship/moat@latest"
+    "command": "go install github.com/oddship/moat@latest",
+    "featured": false
   },
   {
     "name": "doordarshan-zola",
@@ -75,7 +95,8 @@
     "status": "Open source",
     "image": "",
     "image_alt": "",
-    "action": "Theme demo"
+    "action": "Theme demo",
+    "featured": false
   },
   {
     "name": "oatbase",
@@ -88,7 +109,8 @@
     "status": "Open source",
     "image": "",
     "image_alt": "",
-    "action": "Examples"
+    "action": "Examples",
+    "featured": false
   },
   {
     "name": "bosun",
@@ -97,10 +119,12 @@
     "body": "Provides agent coordination, task tracking, and sandboxing for work across a repository.",
     "url": "https://github.com/oddship/bosun",
     "language": "TypeScript",
-    "homepage": "",
+    "homepage": "https://oddship.github.io/bosun/",
     "status": "Open source",
     "image": "",
-    "image_alt": ""
+    "image_alt": "",
+    "featured": false,
+    "action": "Documentation"
   },
   {
     "name": "quartermaster",
@@ -109,9 +133,53 @@
     "body": "Scans dependencies or documentation, produces a JSON plan, and validates it before execution. Built-in missions cover dependency updates and documentation drift. Dry-run is the default.",
     "url": "https://github.com/oddship/quartermaster",
     "language": "TypeScript",
-    "homepage": "",
+    "homepage": "https://oddship.github.io/quartermaster/",
     "status": "Open source",
     "image": "",
-    "image_alt": ""
+    "image_alt": "",
+    "featured": false,
+    "action": "Documentation"
+  },
+  {
+    "name": "bb-plugins",
+    "title": "BB plugins",
+    "description": "Browse code reviews, work conversations, and tasks inside BB.",
+    "body": "Includes px0 Review, Mattermost, GitLab, Gitea, and Bureaucat integrations. Each plugin has its own installation instructions and releases.",
+    "url": "https://github.com/oddship/bb-plugins",
+    "language": "TypeScript",
+    "homepage": "https://github.com/oddship/bb-plugins#readme",
+    "action": "Installation guide",
+    "status": "Open source",
+    "image": "",
+    "image_alt": "",
+    "featured": false
+  },
+  {
+    "name": "logchef-nix",
+    "title": "Logchef for NixOS",
+    "description": "Run Logchef as a native NixOS service without a container runtime.",
+    "body": "A Nix package and service module with pinned sources, an embedded web interface, and documented deployment options.",
+    "url": "https://github.com/oddship/logchef-nix",
+    "language": "Nix",
+    "homepage": "https://oddship.github.io/logchef-nix/",
+    "action": "Documentation",
+    "status": "Open source",
+    "image": "",
+    "image_alt": "",
+    "featured": false
+  },
+  {
+    "name": "reading-list",
+    "title": "Reading list",
+    "description": "Reading notes and digests on software, infrastructure, and other interests.",
+    "body": "A public reading garden built with Zola. Browse individual notes and longer digests, with links to their original sources.",
+    "url": "https://github.com/oddship/reading-list",
+    "language": "Markdown",
+    "homepage": "https://reading-list.oddship.net",
+    "action": "Read the notes",
+    "status": "Public reading garden",
+    "image": "",
+    "image_alt": "",
+    "featured": false
   }
 ]

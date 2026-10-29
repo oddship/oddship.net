@@ -1,0 +1,75 @@
+name: Weekly maintenance
+
+on:
+  schedule:
+    - cron: '23 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-maintenance
+  cancel-in-progress: false
+
+jobs:
+  catalogue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - name: Check links and report catalogue drift
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/check_catalogue.py --report maintenance.json --summary "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: catalogue-maintenance
+          path: maintenance.json
+
+  dependencies:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          submodules: recursive
+      - name: Install Nix
+        uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b # v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Refresh Nix and theme pins
+        run: python3 scripts/update_dependencies.py
+      - name: Validate dependency update
+        run: |
+          git add flake.nix flake.lock themes/doordarshan
+          nix build .#default
+      - name: Open or update maintenance PR
+        id: pr
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
+        with:
+          branch: automation/dependencies
+          delete-branch: true
+          commit-message: 'chore(deps): refresh Nix and theme pins'
+          title: 'chore(deps): refresh Nix and theme pins'
+          body: |
+            Refresh the locked Nix inputs and update the Doordarshan submodule and flake input together.
+
+            Validation: the production Nix build, generated site checks, and Python tests passed. Review the preview artifact and mobile layout before merging.
+          add-paths: |
+            flake.nix
+            flake.lock
+            themes/doordarshan
+      # GITHUB_TOKEN PRs do not trigger pull_request workflows. Dispatch the
+      # check explicitly so the PR's head receives the required build status.
+      - name: Run PR checks
+        if: steps.pr.outputs.pull-request-number && steps.pr.outputs.pull-request-operation != 'closed'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run check.yml --ref automation/dependencies

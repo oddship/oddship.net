@@ -15,6 +15,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
@@ -29,7 +30,10 @@ jobs:
             experimental-features = nix-command flakes
 
       - name: Build site
-        run: nix build .#default
+        run: |
+          python3 scripts/update_dependencies.py --check
+          nix build .#default
+          test "$(cat result/revision.txt)" = "$GITHUB_SHA"
 
       - name: Create site archive
         run: tar czf oddship.net.tar.gz -C result .
@@ -52,14 +56,17 @@ jobs:
           S3SITE_ENDPOINT: http://rhnvrm-private:3900
         run: |
           set -euo pipefail
-          nix shell nixpkgs#awscli2 -c aws \
+          nix shell --inputs-from . nixpkgs#awscli2 -c aws \
             --endpoint-url "${S3SITE_ENDPOINT}" \
             s3api put-object \
             --bucket "${S3SITE_BUCKET}" \
             --key "sites/oddship.net.tar.gz" \
             --body oddship.net.tar.gz >/dev/null
-          nix shell nixpkgs#awscli2 -c aws \
+          nix shell --inputs-from . nixpkgs#awscli2 -c aws \
             --endpoint-url "${S3SITE_ENDPOINT}" \
             s3api head-object \
             --bucket "${S3SITE_BUCKET}" \
             --key "sites/oddship.net.tar.gz" >/dev/null
+
+      - name: Verify public deployment
+        run: python3 scripts/verify_deployment.py --url https://oddship.net --revision "$GITHUB_SHA" --timeout 600

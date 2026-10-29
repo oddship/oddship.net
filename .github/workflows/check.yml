@@ -3,29 +3,33 @@ on:
   push:
     branches-ignore: [main]
   pull_request:
+  workflow_dispatch:
+
 permissions:
   contents: read
+
+concurrency:
+  group: check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
         with:
           submodules: recursive
-      - name: Install pinned Zola
-        run: |
-          curl --fail --location --retry 3 https://github.com/getzola/zola/releases/download/v0.21.0/zola-v0.21.0-x86_64-unknown-linux-gnu.tar.gz -o /tmp/zola.tar.gz
-          echo '5c37a8f706567d6cad3f0dbc0eaebe3b9591cc301bd67089e5ddc0d0401732d6  /tmp/zola.tar.gz' | sha256sum --check
-          tar xzf /tmp/zola.tar.gz -C /tmp
-          /tmp/zola build
-      - uses: actions/upload-artifact@v4
-        with:
-          name: oddship-preview
-          path: public
       - name: Install Nix
         uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
-      - name: Check deployment build
+      - name: Check theme pins
+        run: python3 scripts/update_dependencies.py --check
+      - name: Build and check site
         run: nix build .#default
+      - uses: actions/upload-artifact@v4
+        with:
+          name: oddship-preview
+          path: result/
